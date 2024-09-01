@@ -5,6 +5,7 @@ import { CiBellOn } from "react-icons/ci";
 import { RxAvatar } from "react-icons/rx";
 import { CiBookmark } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 const LeftSidebar = () => {
   return (
@@ -21,10 +22,10 @@ const LeftSidebar = () => {
 
         <div>
           <div>
-            <div className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer">
+            <Link to={'/'} className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer">
               <CiHome className="flex items-center my-2 " />
               <h1 className="font-bold ml-2">Home </h1>
-            </div>
+            </Link>
           </div>
 
           <div>
@@ -42,10 +43,10 @@ const LeftSidebar = () => {
           </div>
 
           <div>
-            <div className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer ">
+            <Link to={'/profile'} className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer ">
               <RxAvatar className="flex items-center my-2 " />{" "}
               <h1 className="font-bold ml-2">Profile </h1>
-            </div>
+            </Link>
           </div>
 
           <div>
