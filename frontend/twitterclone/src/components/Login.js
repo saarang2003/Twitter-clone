@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { USER_API_END_POINT,TWEET_API_END_POINT } from '../utils/constant';
+import { USER_API_END_POINT } from '../utils/constant';
+import toast from 'react-hot-toast';
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -8,28 +11,50 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleLogin = () => {
     setIsLogin(!isLogin);
   };
 
-
-  const submitHandler =async(e) =>{
+  const submitHandler = async (e) => {
     e.preventDefault();
-    if(isLogin){
+    if (isLogin) {
+      // login
       try {
-        const res = axios.post(`${USER_API_END_POINT}/login` , {email,password});
-        console.log(res);
+        const res = await axios.post(`${USER_API_END_POINT}/login`, { username,email, password }, {
+          headers: {
+            'Content-Type': "application/json"
+          },
+          withCredentials: true
+        }); 
+        dispatch(getUser(res?.data?.user));  
+        if(res.data.success){
+          toast.success(res.data.message);
+          navigate("/");
+          console.log(res)
+        }
       } catch (error) {
+        toast.error(error.response.data.message);
         console.log(error);
       }
-
-    }else{
+    } else {
+      // signup
       try {
-        const res = axios.post(`${USER_API_END_POINT}/register` , {name,username,email,password});
-        console.log(res);
+        const res = await axios.post(`${USER_API_END_POINT}/register`, { name, username, email, password }, {
+          headers: {
+            'Content-Type': "application/json"
+          },
+          withCredentials: true
+        }); 
+        if(res.data.success){
+          toast.success(res.data.message);
+          console.log(res)
+        }
       } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message);
+        
       }
     }
   }
@@ -56,7 +81,7 @@ const Login = () => {
               <input
                 type="text"
                 value={name}
-                onChange={(e) =>setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
                 placeholder='Name'
                 className='outline-blue-500 border border-gray-800 py-2 px-1 rounded-full my-1 font-semibold'
               />
@@ -64,25 +89,25 @@ const Login = () => {
             <input
               type="text"
               value={username}
-              onChange={(e) =>setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
               placeholder='Username'
               className='outline-blue-500 border border-gray-800 py-2 px-1 rounded-full my-1 font-semibold'
             />
             <input
               type="email"
               value={email}
-                onChange={(e) =>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder='Email'
               className='outline-blue-500 border border-gray-800 py-2 px-1 rounded-full my-1 font-semibold'
             />
             <input
               type="password"
               value={password}
-                onChange={(e) =>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder='Password'
               className='outline-blue-500 border border-gray-800 py-2 px-1 rounded-full my-1 font-semibold'
             />
-            <button className='bg-[#1d9bf0] border-none py-2 my-4 rounded-full text-lg text-white'>
+            <button   className='bg-[#1d9bf0] border-none py-2 my-4 rounded-full text-lg hover:bg-slate-400 text-white'>
               {isLogin ? 'Login' : 'Sign Up'}
             </button>
           </form>
