@@ -5,7 +5,7 @@ import { FaRetweet } from "react-icons/fa6";
 import { CiBookmark } from "react-icons/ci";
 
 
-const Tweet = () => {
+const Tweet = ({tweet}) => {
   return (
     <div className="p-4 border-b border-gray-200">
       <div className="flex">
@@ -16,10 +16,10 @@ const Tweet = () => {
         />
         <div className="ml-3 w-full">
           <div className="flex items-center">
-            <h1 className="font-bold">Patel</h1>
-            <p className="text-gray-500 text-sm ml-2">@patelmernstack · 1m</p>
+            <h1 className="font-bold">{tweet?.userDetails[0].name}</h1>
+            <p className="text-gray-500 text-sm ml-2">{`@tweet?.userDetails[0].username`}</p>
           </div>
-          <p className="mt-1">Hello developer, let's connect and grow together</p>
+          <p className="mt-1">{tweet?.description}</p>
         </div>
       </div>
       <div className='flex justify-between items-center my-2'>
@@ -27,7 +27,7 @@ const Tweet = () => {
                 <div className='p-2 hover:bg-green-100 rounded-full cursor-pointer'>
                 <CiHeart size={'20px'}/>
                 </div>
-                <p className='ml-1'>0</p>
+                <p className='ml-1'>{tweet?.like.length}</p>
             </div>
             <div className='flex items-center'>
                 <div className='p-2 hover:bg-green-100 rounded-full cursor-pointer' >

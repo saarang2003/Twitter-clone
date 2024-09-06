@@ -1,9 +1,15 @@
 import React from 'react'
 import Avatar from 'react-avatar';
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import useGetProfile from '../hooks/useGetProfile';
 
 const Profile = () => {
+    const {user , profile } = useSelector(store => store.user);
+    const {id} = useParams();
+    useGetProfile(id);
+
   return (
     <div className='w-[50%] border-l border-r border-gray-200'>
         <div>
@@ -13,7 +19,7 @@ const Profile = () => {
                 </Link>
 
                 <div className='ml-2'>
-                <h1 className='font-bold text-lg'>Patel</h1>
+                <h1 className='font-bold text-lg'>{profile?.name}</h1>
                 <p className='text-gray-500 text-sm' >10 post</p>
                 </div>
                 
@@ -28,8 +34,8 @@ const Profile = () => {
             </div>
 
             <div className='m-4'>
-                <h1 className='font-bold text-xl'>Patel</h1>
-                <p>@patelmern</p>
+                <h1 className='font-bold text-xl'>{profile?.name}</h1>
+                <p>{`@${profile?.username}`}</p>
             </div>
 
             <div className='m-4 text-sm'>

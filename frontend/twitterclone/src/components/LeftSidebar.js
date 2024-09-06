@@ -6,8 +6,12 @@ import { RxAvatar } from "react-icons/rx";
 import { CiBookmark } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LeftSidebar = () => {
+
+  const {user} = useSelector(store => store.user);
+
   return (
     <div className ='w-[20%]'>
       <div>
@@ -43,7 +47,7 @@ const LeftSidebar = () => {
           </div>
 
           <div>
-            <Link to={'/profile'} className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer ">
+            <Link to={`/profile/${user?._id}`} className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer ">
               <RxAvatar className="flex items-center my-2 " />{" "}
               <h1 className="font-bold ml-2">Profile </h1>
             </Link>

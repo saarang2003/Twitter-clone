@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { USER_API_END_POINT } from '../utils/constant';
 import toast from 'react-hot-toast';
-import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getUser } from '../redux/userSlice';
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -23,7 +24,7 @@ const Login = () => {
     if (isLogin) {
       // login
       try {
-        const res = await axios.post(`${USER_API_END_POINT}/login`, { username,email, password }, {
+        const res = await axios.post(`${USER_API_END_POINT}/login`, { username, email, password }, {
           headers: {
             'Content-Type': "application/json"
           },
@@ -54,7 +55,6 @@ const Login = () => {
         }
       } catch (error) {
         toast.error(error.response.data.message);
-        
       }
     }
   }
@@ -88,10 +88,10 @@ const Login = () => {
             )}
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder='Username'
-              className='outline-blue-500 border border-gray-800 py-2 px-1 rounded-full my-1 font-semibold'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder='Username'
+                className='outline-blue-500 border border-gray-800 py-2 px-1 rounded-full my-1 font-semibold'
             />
             <input
               type="email"
@@ -107,7 +107,7 @@ const Login = () => {
               placeholder='Password'
               className='outline-blue-500 border border-gray-800 py-2 px-1 rounded-full my-1 font-semibold'
             />
-            <button   className='bg-[#1d9bf0] border-none py-2 my-4 rounded-full text-lg hover:bg-slate-400 text-white'>
+            <button className='bg-[#1d9bf0] border-none py-2 my-4 rounded-full text-lg hover:bg-slate-400 text-white'>
               {isLogin ? 'Login' : 'Sign Up'}
             </button>
           </form>
