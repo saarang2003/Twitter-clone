@@ -12,7 +12,7 @@ export const createTweet = async(req,res) =>{
             });
         };
 
-        const {user} = await User.findById(id).select("-password");
+        const user = await User.findById(id).select("-password");
         await Tweet.create({
             description,
             userId:id,
