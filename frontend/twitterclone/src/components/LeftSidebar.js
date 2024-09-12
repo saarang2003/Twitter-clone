@@ -5,12 +5,37 @@ import { CiBellOn } from "react-icons/ci";
 import { RxAvatar } from "react-icons/rx";
 import { CiBookmark } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link , useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { USER_API_END_POINT } from "../utils/constant";
+import toast from "react-hot-toast";
+import { getMyProfile, getOtherUsers, getUser } from "../redux/userSlice";
+
 
 const LeftSidebar = () => {
 
   const {user} = useSelector(store => store.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const logoutHandler = async() =>{
+    try {
+      axios.defaults.withCredentials = true;
+      const res  = await axios.get(`${USER_API_END_POINT}/logout`)
+        navigate('/login')
+        dispatch(getUser(null));
+        dispatch(getMyProfile(null));
+        dispatch(getOtherUsers(null));
+        toast.success(res.data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    }
+  }
+
+
+
 
   return (
     <div className ='w-[20%]'>
@@ -28,13 +53,13 @@ const LeftSidebar = () => {
           <div>
             <Link to={'/'} className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer">
               <CiHome className="flex items-center my-2 " />
-              <h1 className="font-bold ml-2">Home </h1>
+              <h1 className="font-bold ml-2">Home</h1>
             </Link>
           </div>
 
           <div>
             <div className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer ">
-              <FaHashtag className="flex items-center my-2" />{" "}
+              <FaHashtag className="flex items-center my-2" />
               <h1 className="font-bold ml-2">Explore </h1>
             </div>
           </div>
@@ -61,7 +86,7 @@ const LeftSidebar = () => {
           </div>
 
           <div>
-            <div className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer ">
+            <div onClick={logoutHandler} className="flex items-center py-2 px-4 hover:bg-gray-200 rounded-full hover:cursor-pointer ">
               <CiLogout className="flex items-center my-2 " />{" "}
               <h1 className="font-bold ml-2">Logout </h1>
             </div>

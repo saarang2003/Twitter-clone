@@ -8,7 +8,6 @@ import Profile from './Profile';
 
 const Body = () => {
 
-
     const appRouter = createBrowserRouter([
         {
             path :"/",
@@ -19,12 +18,11 @@ const Body = () => {
                     element : <Feed/>
                 },
                 {
-                    path : "/profile",
+                    path : "/profile/:id",
                     element : <Profile/>
                 }
             ]
             
-           
         } , 
         {
             path : "/login",
@@ -38,6 +36,8 @@ const Body = () => {
   return (
     <div>
         <RouterProvider router = {appRouter}/>
+
+       
     </div>
   )
 }

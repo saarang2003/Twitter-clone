@@ -7,11 +7,11 @@ import { getMyProfile } from "../redux/userSlice";
 
 const useGetProfile = (id) => {
     const dispatch = useDispatch();
-    useEffect(()=>{
+    useEffect(() => {
         const fetchMyProfile = async () => {
             try {
-                const res = await axios.get(`${USER_API_END_POINT}/profile/${id}`,{
-                    withCredentials:true
+                const res = await axios.get(`${USER_API_END_POINT}/profile/${id}`, {
+                    withCredentials: true
                 });
                 console.log(res);
                 dispatch(getMyProfile(res.data.user));
@@ -20,6 +20,6 @@ const useGetProfile = (id) => {
             }
         }
         fetchMyProfile();
-    },[id]);
+    }, [id]);
 };
 export default useGetProfile;

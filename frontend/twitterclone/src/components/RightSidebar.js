@@ -16,7 +16,7 @@ const RightSidebar = ({ otherUsers }) => {
         {
           otherUsers?.map((user) => {
             return (
-              <div key={user?._id} className='flex items-center justify-between my-3'>
+              <div key={user?._id} className='flex  items-center justify-between my-3'>
                 <div className='flex'>
                   <div>
                     <Avatar src="https://pbs.twimg.com/profile_images/1703261403237502976/W0SFbJVS_400x400.jpg" size="40" round={true} />
@@ -35,9 +35,6 @@ const RightSidebar = ({ otherUsers }) => {
             )
           })
         }
-
-
-
       </div>
     </div>
   )

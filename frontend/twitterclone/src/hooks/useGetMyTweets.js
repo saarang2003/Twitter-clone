@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { TWEET_API_END_POINT } from "../utils/constant";
 import { useEffect } from "react";
@@ -8,7 +9,6 @@ const useGetMyTweets = (id) => {
     const dispatch = useDispatch();
     const { refresh, isActive } = useSelector(store => store.tweet);
     
-
     const fetchMyTweets = async () => {
         try {
             const res = await axios.get(`${TWEET_API_END_POINT}/getAllTweets/${id}`, {
@@ -20,10 +20,13 @@ const useGetMyTweets = (id) => {
             console.log(error);
         }
     }
+
     const followingTweetHandler = async () => { 
         try {
             axios.defaults.withCredentials = true;
-            const res = await axios.get(`${TWEET_API_END_POINT}/followingtweets/${id}`);
+            const res = await axios.get(`${TWEET_API_END_POINT}/getFollowingTweet/${id}` , {
+                withCredentials: true
+            });
             console.log(res);
             dispatch(getAllTweets(res.data.tweets));
         } catch (error) {
@@ -31,12 +34,14 @@ const useGetMyTweets = (id) => {
         }
     }
 
+
+
     useEffect(() => {
         if(isActive){
             fetchMyTweets();
         }else{
             followingTweetHandler();
         }
-    }, [isActive,refresh]);
+    }, [isActive ,refresh]);
 };
 export default useGetMyTweets;

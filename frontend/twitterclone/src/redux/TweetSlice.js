@@ -14,10 +14,13 @@ const tweetSlice = createSlice({
         },
         getRefresh : (state) =>{
             state.refresh = !state.refresh;
+        },
+        getActive : (state,action) =>{
+            state.isActive = action.payload;
         }
     }
 })
 
 
-export const {getAllTweets, getRefresh} = tweetSlice.actions;
+export const {getAllTweets,getActive, getRefresh} = tweetSlice.actions;
 export default tweetSlice.reducer;
